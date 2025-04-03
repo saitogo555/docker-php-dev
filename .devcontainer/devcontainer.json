@@ -1,0 +1,18 @@
+{
+	"name": "docker-php-dev (php)",
+	"dockerComposeFile": ["../compose.yml"],
+	"service": "php",
+	"workspaceFolder": "/var/www/html",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"bmewburn.vscode-intelephense-client",
+				"xdebug.php-debug",
+				"zobo.php-intellisense"
+			],
+			"settings": {
+				"php.validate.executablePath": "/usr/local/bin/php"
+			}
+		}
+	}
+}
