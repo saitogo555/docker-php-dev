@@ -10,7 +10,7 @@ services:
     volumes:
       - ./php/php.ini:/usr/local/etc/php/php.ini
       - ./php/000-default.conf:/etc/apache2/sites-available/000-default.conf
-      - ./src:/var/www
+      - ./src:/var/www/html
     ports:
       - 8080:80
     depends_on:
