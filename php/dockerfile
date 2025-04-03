@@ -39,7 +39,11 @@ RUN usermod -aG sudo www-data
 RUN echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # 作業ディレクトリをプロジェクトルートに設定
-WORKDIR /var/www
+WORKDIR /var/www/html
+
+# フォルダの権限を設定
+RUN chmod -R 755 /var/www && \
+    chown -R www-data:www-data /var/www
 
 # www-dataに切り替え
 USER www-data
