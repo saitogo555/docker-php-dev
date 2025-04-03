@@ -29,7 +29,7 @@ phpMyAdminとMailhogが導入済みのため、それぞれブラウザからデ
 
 ## php
 
-### composer
+### Composer
 
 composerコマンドを使用するにはphpコンテナ内で実行する必要があります。
 
@@ -50,16 +50,13 @@ composerコマンドを使用するにはphpコンテナ内で実行する必要
 
 ### データベース
 
-MariaDBを使用する場合は以下の設定を.envファイルに記述してください。
-
-| Key           | Value       |
-|---------------|-------------|
-| DB_CONNECTION | mysql       |
-| DB_HOST       | mariadb     |
-| DB_PORT       | 3306        |
-| DB_DATABASE   | laravel_app |
-| DB_USERNAME   | root        |
-| DB_PASSWORD   | root        |
+| Key        | Value       |
+|------------|-------------|
+| HOST       | mariadb     |
+| PORT       | 3306        |
+| DATABASE   | php-dev     |
+| USERNAME   | root        |
+| PASSWORD   | root        |
 
 ## mariadb
 
@@ -68,7 +65,7 @@ phpMyAdminからデータベースの管理を行うことが出来ます。
 直接コマンドでデータベースを操作する場合は下記の手順でMariaDBにログイン出来ます。
 
 1. `docker compose exec mariadb bash`を実行してmariadbコンテナに入る。
-2. `mysql -u root -p laravel_app`を実行してパスワード入力画面に遷移する。
+2. `mariadb -u root -p`を実行してパスワード入力画面に遷移する。
 3. パスワード`root`を入力し、Enterを押してMariaDBにログインする。
 
 ## phpmyadmin
