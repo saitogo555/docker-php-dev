@@ -29,6 +29,10 @@ phpMyAdminとMailhogが導入済みのため、それぞれブラウザからデ
 
 ## php
 
+srcフォルダ直下がドキュメントルートになります。
+
+`http://localhost:8080`でWebサイトにアクセスできます。
+
 ### Composer
 
 composerコマンドを使用するにはphpコンテナ内で実行する必要があります。
