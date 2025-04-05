@@ -10,11 +10,22 @@ ARG GID=1000
 # パッケージリストの更新とパッケージのアップグレード
 RUN apt-get update && apt-get upgrade -y
 
-# パッケージのインストール
+# 基本パッケージのインストール
 RUN apt-get install sudo zip unzip git -y
+
+# PHPでJPGとPNGを扱うためのパッケージをインストール
+RUN apt-get install -y \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    zlib1g-dev
 
 # PHPの拡張機能をインストール
 RUN docker-php-ext-install pdo pdo_mysql
+
+# GDの設定（JPGとPNG対応）
+RUN docker-php-ext-configure gd --with-jpeg --with-freetype
+RUN docker-php-ext-install gd
 
 # Composerのインストール
 COPY --from=composer /usr/bin/composer /usr/bin/composer
