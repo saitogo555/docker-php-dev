@@ -7,16 +7,26 @@ phpMyAdminとMailhogが導入済みのため、それぞれブラウザからデ
 ## 必須環境
 
 - Docker (Docker Desktop, Docker Engine)
-- Hyper-V (Windowsのみ)
-- WSL2 (Windowsのみ)
-
-※Hyper-VとWSL2はどちらか一方がセットアップされている必要があります。
 
 ## セットアップ手順
 
-1. `git clone https://github.com/saitogo555/docker-php-dev.git`を実行してリポジトリをクローンする
-2. `cd docker-php-dev`を実行してプロジェクトフォルダに移動する。
-3. `docker compose up -d`を実行してコンテナを起動する。
+1. リポジトリをクローンする。
+
+    ```bash
+    git clone https://github.com/saitogo555/docker-php-dev.git
+    ```
+
+2. プロジェクトフォルダに移動する。
+
+    ```bash
+    cd docker-php-dev
+    ```
+
+3. コンテナを起動する。
+
+    ```bash
+    docker compose up -d
+    ```
 
 ## サービス一覧
 
@@ -35,9 +45,9 @@ srcフォルダ直下がドキュメントルートになります。
 
 ### Composer
 
-composerコマンドを使用するにはphpコンテナ内で実行する必要があります。
+phpサービスにはcomposerが最初からインストールされています。
 
-方法は以下の2通りあります。
+composerの使用方法は以下の2通りあります。
 
 1. phpコンテナ内に入ってから任意のコマンドを実行する。
 
@@ -52,7 +62,26 @@ composerコマンドを使用するにはphpコンテナ内で実行する必要
     docker compose exec php composer -V
     ```
 
-### データベース
+## mariadb
+
+直接コマンドでデータベースを操作する場合は下記の手順でMariaDBにログイン出来ます。
+
+1. `docker compose exec mariadb bash`を実行してmariadbコンテナに入る。
+2. `mariadb -u root -p`を実行してパスワード入力画面に遷移する。
+3. パスワード`root`を入力し、Enterを押してMariaDBにログインする。
+
+### 初期データ挿入
+
+`sql`フォルダ直下にSQLファイルを配置することで、コンテナ起動時に自動的にデータベースに初期データを挿入できます。
+
+**使用方法:**
+
+1. `sql`フォルダにSQLファイル(例: `init.sql`)を配置する
+2. `docker compose up -d`でコンテナを起動すると、SQLファイルが自動実行される
+
+**注意:** 初期化スクリプトはデータベースが初回作成時のみ実行されます。既存のデータベースがある場合は実行されないため、再度実行したい場合はボリュームを削除してください。
+
+### データベース接続情報
 
 | Key        | Value       |
 |------------|-------------|
@@ -61,16 +90,6 @@ composerコマンドを使用するにはphpコンテナ内で実行する必要
 | DATABASE   | php-dev     |
 | USERNAME   | root        |
 | PASSWORD   | root        |
-
-## mariadb
-
-phpMyAdminからデータベースの管理を行うことが出来ます。
-
-直接コマンドでデータベースを操作する場合は下記の手順でMariaDBにログイン出来ます。
-
-1. `docker compose exec mariadb bash`を実行してmariadbコンテナに入る。
-2. `mariadb -u root -p`を実行してパスワード入力画面に遷移する。
-3. パスワード`root`を入力し、Enterを押してMariaDBにログインする。
 
 ## phpmyadmin
 
