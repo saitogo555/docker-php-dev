@@ -85,7 +85,7 @@ composerの使用方法は以下の2通りあります。
 
 | Key        | Value       |
 |------------|-------------|
-| HOST       | mariadb     |
+| HOST       | localhost   |
 | PORT       | 3306        |
 | DATABASE   | php-dev     |
 | USERNAME   | root        |
