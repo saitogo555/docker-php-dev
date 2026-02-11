@@ -47,7 +47,3 @@ services:
       MH_MAILDIR_PATH: /tmp
     volumes:
       - ./mailhog_data:/tmp
-
-volumes:
-  mariadb_data:
-  mailhog_data:
