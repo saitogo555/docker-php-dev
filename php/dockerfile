@@ -8,24 +8,22 @@ ARG UID=1000
 ARG GID=1000
 
 # パッケージリストの更新とパッケージのアップグレード
-RUN apt-get update && apt-get upgrade -y
-
-# 基本パッケージのインストール
-RUN apt-get install sudo zip unzip git -y
-
-# PHPでJPGとPNGを扱うためのパッケージをインストール
-RUN apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
+    zip \
+    unzip \
+    git \
+    curl \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
     zlib1g-dev
 
 # PHPの拡張機能をインストール
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql gd
 
 # GDの設定（JPGとPNG対応）
 RUN docker-php-ext-configure gd --with-jpeg --with-freetype
-RUN docker-php-ext-install gd
 
 # Composerのインストール
 COPY --from=composer /usr/bin/composer /usr/bin/composer
@@ -40,14 +38,8 @@ RUN curl -sSL https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhs
 RUN a2enmod rewrite
 
 # www-dataのUIDとGIDを設定
-RUN groupmod -g ${UID} www-data && \
-    usermod -u ${GID} www-data
-
-# www-dataユーザーをsudoグループに追加
-RUN usermod -aG sudo www-data
-
-# www-dataユーザーにパスワードなしでsudoを実行する権限を付与
-RUN echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN groupmod -g ${GID} www-data && \
+    usermod -u ${UID} www-data
 
 # 作業ディレクトリをプロジェクトルートに設定
 WORKDIR /var/www/html
